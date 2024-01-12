@@ -1,0 +1,33 @@
+﻿@page "/appstore"
+@model IndexModel
+
+<div>
+    <h2>Последние игры в App Store</h2>
+    <form method="get" asp-page-handler="Search">
+        <label for="searchInput">Поиск:</label>
+        <input type="text" id="searchInput" name="searchTerm" />
+        <button type="submit">Искать</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Дата выпуска</th>
+                <th>Жанр</th>
+                <th>Ссылка в App Store</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model.NewGames)
+            {
+                <tr>
+                    <td>@game.Name</td>
+                    <td>@(game.ReleaseDate.HasValue ? game.ReleaseDate.Value.ToShortDateString() : "N/A")</td>
+                    <td>@game.Genre</td>
+                    <td><a href="@game.AppStoreLink" target="_blank">Ссылка</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
